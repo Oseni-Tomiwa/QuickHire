@@ -1,8 +1,3 @@
-import React from 'react';  
-import { useParams } from 'react-router-dom';
-import {useState} from 'react';
-
-
 function jobDetails({job, setDetails}) {
   return (
     <div className='w-full  border-1 border-gray-200 rounded-lg p-5'>

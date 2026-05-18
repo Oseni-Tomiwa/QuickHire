@@ -1,11 +1,9 @@
-import React from 'react';
 import { useState } from 'react';
-import { Router } from 'react-router';
 import JobDetails from './JobDetails';
 
 
 
-function JobCard({ job, onClick }) {
+function JobCard({ job }) {
   const [showDetails, setShowDetails] = useState(false);
   const displayDetails = () => {
     setShowDetails(true);

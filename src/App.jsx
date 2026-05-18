@@ -1,6 +1,8 @@
 import './App.css'
 import JobCard from './components/JobCard';
 import Navbar from './components/Navbar';
+import Search from './components/Search';
+import { useState } from 'react'
 
 
 function App() {
@@ -95,6 +97,13 @@ const jobs = [
   }
 ];
 
+const [searchTerm, setSearchTerm] = useState("");
+
+
+const filteredJobs = jobs.filter((job) =>
+  job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  job.company.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div>
@@ -104,22 +113,14 @@ const jobs = [
           <div className='description'>Your one-stop solution for quick and efficient hiring.</div>
       </div>
       <div className='SearchBar'>    
-        <div className="max-w-2xl mx-auto">
-          <input
-            type="text"
-            placeholder="Search jobs, companies..."
-            // value={searchTerm}
-            // onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2  text-lg border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-green-500"
-          />
-       </div>
+        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
       <div className='joblist'> 
-        {jobs.length === 0 ? (
+        {filteredJobs.length === 0 ? (
           <div className='text-center text-gray-500 mt-10'>No jobs found.</div>
         ) : (
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5'>
-            {jobs.map((job) => ( 
+            {filteredJobs.map((job) => ( 
               
               <JobCard key={job.id} job={job} />
 
@@ -136,5 +137,3 @@ const jobs = [
 }
 
 export default App
-
-

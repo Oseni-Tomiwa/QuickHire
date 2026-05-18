@@ -18,6 +18,7 @@ function JobCard({ job }) {
 
       <h3 className="font-semibold text-xl mb-1">{job.title}</h3>
       <p className="text-gray-700">{job.company}</p>
+      <p className="text-sm text-gray-500">{job.location} • {job.type}</p>
 
       <p className="text-green-600 font-semibold mt-4">{job.salary}</p>
 

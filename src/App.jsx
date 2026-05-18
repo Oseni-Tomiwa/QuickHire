@@ -1,12 +1,11 @@
 import './App.css'
+import CreateJob from './components/CreateJob';
 import JobCard from './components/JobCard';
 import Navbar from './components/Navbar';
 import Search from './components/Search';
 import { useState } from 'react'
 
-
-function App() {
-const jobs = [
+const initialJobs = [
   {
     id: 1,
     title: "Frontend Developer",
@@ -97,12 +96,27 @@ const jobs = [
   }
 ];
 
+function App() {
+const [jobs, setJobs] = useState(initialJobs);
 const [searchTerm, setSearchTerm] = useState("");
 
+const handleCreateJob = (newJob) => {
+  setSearchTerm("");
+  setJobs((currentJobs) => [
+    {
+      id: Date.now(),
+      posted: "Just now",
+      logo: "💼",
+      ...newJob,
+    },
+    ...currentJobs,
+  ]);
+};
 
 const filteredJobs = jobs.filter((job) =>
   job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  job.company.toLowerCase().includes(searchTerm.toLowerCase())
+  job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  job.type.toLowerCase().includes(searchTerm.toLowerCase())
 );
 
   return (
@@ -115,6 +129,7 @@ const filteredJobs = jobs.filter((job) =>
       <div className='SearchBar'>    
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </div>
+      <CreateJob onCreateJob={handleCreateJob} />
       <div className='joblist'> 
         {filteredJobs.length === 0 ? (
           <div className='text-center text-gray-500 mt-10'>No jobs found.</div>
